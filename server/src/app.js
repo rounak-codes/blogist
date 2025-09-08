@@ -1,6 +1,8 @@
+// server/src/app.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import postRoutes from "./routes/postRoutes.js"; // import routes here
 
 dotenv.config();
 
@@ -14,5 +16,8 @@ app.use(express.json());
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date() });
 });
+
+// Mount post routes at /api/posts
+app.use("/api/posts", postRoutes);
 
 export default app;
