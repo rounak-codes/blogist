@@ -4,8 +4,11 @@ const CategoriesCard = ({ categories }) => {
   const safeCategories = Array.isArray(categories) ? categories : [];
 
   return (
-    <div className="bg-white dark:bg-gray-900 shadow rounded-xl p-4">
-      <h2 className="text-lg font-semibold mb-3">Categories</h2>
+    <div
+      className="shadow rounded-xl p-4"
+      style={{ backgroundColor: "var(--bg-accent)" }}
+    >
+      <h2 className="text-lg font-semibold mb-3 text-white">Categories</h2>
 
       <div className="flex flex-col gap-2">
         {safeCategories.length === 0 && (
@@ -13,14 +16,18 @@ const CategoriesCard = ({ categories }) => {
         )}
 
         {safeCategories.map((cat, idx) => (
-          <Link
-            key={idx}
-            to={`/blogs?category=${cat}`}
-            className="text-left px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 
-                       hover:bg-gray-200 dark:hover:bg-gray-850 transition"
-          >
-            {cat}
-          </Link>
+        <Link
+        key={idx}
+        to={`/blogs?category=${cat}`}
+        className="
+          text-left px-3 py-2 rounded-lg 
+          bg-transparent text-white
+          transition-colors duration-200
+          hover:bg-[var(--hover-accent)]
+        "
+        >
+          {cat}
+        </Link>
         ))}
       </div>
     </div>

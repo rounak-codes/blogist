@@ -2,16 +2,17 @@ import { FaGithub, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const AuthorCard = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 shadow rounded-xl p-5 text-center">
+    <div className= "shadow rounded-xl p-5 text-center"
+    style={{ backgroundColor: "var(--bg-accent)" }}>
       {/* Profile Image */}
       <img
-        src="/profile.jpg"  // Place your image in public/profile.jpg
+        src="/images/profile.jpg"  // Place your image in public/profile.jpg
         alt="Author"
-        className="w-24 h-24 mx-auto rounded-full object-cover mb-3 shadow"
+        className="w-128 h-128 mx-auto rounded-2xl object-cover mb-3 shadow"
       />
 
       {/* Name */}
-      <h2 className="text-xl font-semibold">Rounak Bag</h2>
+      <h2 className="text-xl font-semibold">Xiffy</h2>
 
       {/* Mini Bio */}
       <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">

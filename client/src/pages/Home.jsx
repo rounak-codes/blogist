@@ -21,15 +21,28 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-950 min-h-screen">
+    <div className="min-h-screen bg-[#0a0f1c]">
       {/* Navbar */}
       <Navbar />
 
-      <div className="w-full px-4 py-8 flex gap-6">
-        {/* Left Sidebar */}
+      {/* HERO BACKGROUND SECTION (fixed, top only) */}
+      <div
+        className="w-full"
+        style={{ height: "400px" }} // adjust height as needed
+      >
+        <img
+          src="/images/bg.jpg"
+          alt="Hero Background"
+          className="w-full object-contain pointer-events-none select-none"
+        />
+      </div>
+
+      {/* CONTENT THAT OVERLAPS THE HERO BACKGROUND */}
+      <div className="w-full px-4 flex gap-6 max-w-7xl mx-auto -mt-16">
+        {/* Sidebar */}
         <Sidebar />
 
-        {/* Post Grid */}
+        {/* Posts */}
         <div className="flex-1">
           <PostGrid posts={posts} />
         </div>

@@ -7,7 +7,7 @@ const Sidebar = () => {
   const tags = ["furina", "neuvillette", "archon", "abyss", "guide", "build"];
 
   return (
-    <div className="w-64 flex flex-col gap-4">
+    <div className="w-80 flex flex-col gap-4 mb-4">
       <AuthorCard />
       <CategoriesCard categories={categories} />
       <TagsCard tags={tags} />
