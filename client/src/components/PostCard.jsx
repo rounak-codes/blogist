@@ -22,8 +22,9 @@ const PostCard = ({ post }) => {
           {new Date(post.createdAt).toLocaleDateString()}
         </p>
 
+        {/* CLEAN excerpt preview (no HTML) */}
         <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
-          {post.summary || post.content?.slice(0, 150) + "..."}
+          {post.excerpt}
         </p>
       </div>
     </Link>

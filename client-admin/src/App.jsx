@@ -1,20 +1,40 @@
-// src/App.jsx
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import AdminLogin from "./components/AdminLogin";
+import AdminLayout from "./components/AdminLayout";
+
+import Dashboard from "./pages/Dashboard";
+import PostsList from "./pages/PostsList";
+import CreatePost from "./pages/CreatePost";
+import EditPost from "./pages/EditPost";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(
-    !!localStorage.getItem("admin_secret")
-  );
+  const loggedIn = !!localStorage.getItem("admin_secret");
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {loggedIn ? (
-        <h1 className="text-2xl p-8">Welcome to Admin Panel</h1>
-      ) : (
-        <AdminLogin onLogin={() => setLoggedIn(true)} />
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        {!loggedIn && (
+          <Route
+            path="/*"
+            element={<AdminLogin onLogin={() => window.location.reload()} />}
+          />
+        )}
+
+        {loggedIn && (
+          <Route path="/" element={<AdminLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="posts" element={<PostsList />} />
+            <Route path="create" element={<CreatePost />} />
+            <Route path="edit/:id" element={<EditPost />} />
+
+            <Route path="" element={<Navigate to="/dashboard" />} />
+          </Route>
+        )}
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -6,6 +6,7 @@ const postSchema = new mongoose.Schema(
     slug: { type: String, required: true, unique: true }, // for URLs
     excerpt: { type: String },
     coverImage: { type: String },
+    gallery: [{ type: String }], // array of image URLs
     content: { type: String, required: true }, // store HTML from editor
     categories: [{ type: String }], // e.g. Patch Updates, Story Thoughts
     tags: [{ type: String }],       // e.g. #ArchonQuest, #5.0

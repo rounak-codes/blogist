@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-const CategoriesCard = ({ categories }) => {
+const CategoriesCard = ({ categories, onCategorySelect }) => {
   const safeCategories = Array.isArray(categories) ? categories : [];
 
   return (
@@ -16,18 +14,18 @@ const CategoriesCard = ({ categories }) => {
         )}
 
         {safeCategories.map((cat, idx) => (
-        <Link
-        key={idx}
-        to={`/blogs?category=${cat}`}
-        className="
-          text-left px-3 py-2 rounded-lg 
-          bg-transparent text-white
-          transition-colors duration-200
-          hover:bg-[var(--hover-accent)]
-        "
-        >
-          {cat}
-        </Link>
+          <button
+            key={idx}
+            onClick={() => onCategorySelect(cat)}
+            className="
+              text-left px-3 py-2 rounded-lg 
+              bg-transparent text-white w-full
+              transition-colors duration-200
+              hover:bg-[var(--hover-accent)]
+            "
+          >
+            {cat}
+          </button>
         ))}
       </div>
     </div>

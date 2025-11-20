@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-const TagsCard = ({ tags }) => {
+const TagsCard = ({ tags, onTagSelect }) => {
   const safeTags = Array.isArray(tags) ? tags : [];
 
   return (
@@ -16,9 +14,9 @@ const TagsCard = ({ tags }) => {
         )}
 
         {safeTags.map((tag, idx) => (
-          <Link
+          <button
             key={idx}
-            to={`/blogs?tag=${tag}`}
+            onClick={() => onTagSelect(tag)}
             className="
               px-3 py-1 text-sm rounded-full 
               bg-transparent text-white
@@ -27,7 +25,7 @@ const TagsCard = ({ tags }) => {
             "
           >
             #{tag}
-          </Link>
+          </button>
         ))}
       </div>
     </div>
