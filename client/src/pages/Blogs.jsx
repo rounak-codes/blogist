@@ -48,7 +48,7 @@ const Blogs = () => {
       setLoading(true);
       try {
         const qs = new URLSearchParams(filters).toString();
-        const res = await fetch(`http://localhost:5000/api/posts?${qs}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/posts?${qs}`);
         const data = await res.json();
         setPosts(data);
       } catch (err) {

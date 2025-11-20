@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/posts");
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/posts`);
         const data = await res.json();
         setPosts(data);
       } catch (err) {
