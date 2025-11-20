@@ -243,8 +243,20 @@ const TipTapEditor = forwardRef(
               🔗
             </button>
 
-            <label className="px-2 cursor-pointer" title="Upload image">
-              🖼️
+            <label
+              className="
+                px-2 
+                h-[44px] 
+                flex items-center justify-center 
+                cursor-pointer 
+                select-none
+                rounded
+                hover:bg-white/10
+              "
+              title="Upload image"
+            >
+              <span className="text-[18px] leading-none">🖼️</span>
+
               <input
                 type="file"
                 accept="image/*"
