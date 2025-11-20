@@ -1,4 +1,8 @@
-# **Blogist — Full-Stack Blogging Platform (React + Node.js + MongoDB + Cloudinary)**
+# 🌐 Live Links
+- **Client Blog:** [https://blogist.vercel.app](https://blogist-two.vercel.app/)
+- **Admin Dashboard:** [https://blogist-admin.vercel.app](https://blogist-admin.vercel.app/)
+
+## **Blogist — Full-Stack Blogging Platform (React + Node.js + MongoDB + Cloudinary)**
 
 A modern, fast, fully customizable blogging platform built with:
 
