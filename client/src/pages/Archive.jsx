@@ -11,7 +11,7 @@ const Archive = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch("${import.meta.env.VITE_API_BASE}/posts");
+        const res = await fetch(`${import.meta.env.VITE_API_BASE}/posts`);
         const data = await res.json();
 
         // Group posts by year
