@@ -53,7 +53,7 @@ const Archive = () => {
       <Navbar />
 
       {/* HERO --- similar to Blogs */}
-      <div className="relative w-full h-[360px] mt-16">
+      <div className="relative w-full h-[360px] mt-0">
         <img
           src="/images/bg.jpg"
           className="w-full h-full object-cover opacity-60 pointer-events-none select-none"

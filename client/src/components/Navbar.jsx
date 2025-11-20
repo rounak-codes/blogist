@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";   // ADD THIS
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -49,51 +50,38 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 w-full z-50">
       <div
         className="
-          max-w-7xl 
-          w-full 
-          mx-auto 
-          shadow-lg 
-          rounded-b-2xl
+          max-w-7xl w-full mx-auto 
+          shadow-lg rounded-b-2xl
           px-6 py-5 
           flex justify-between items-center
         "
         style={{ backgroundColor: "var(--bg-accent)" }}
       >
         {/* Left */}
-        <a
-          href="/"
-          className="font-bold text-lg ml-2"
+        <Link
+          to="/"
+          className="font-bold text-lg ml-6"
           style={{ color: "var(--accent)" }}
         >
           Home
-        </a>
+        </Link>
 
         {/* Center */}
-        <ul className="flex space-x-6 text-white">
-          <li>
-            <a href="/blogs">Blogs</a>
-          </li>
-          <li>
-            <a href="/about">About</a>
-          </li>
-          <li>
-            <a href="/archive">Archive</a>
-          </li>
-          <li>
-            <a href="/contact">Contact</a>
-          </li>
+        <ul className="flex space-x-6 ml-40 text-white">
+          <li><Link to="/blogs">Blogs</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/archive">Archive</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
         </ul>
 
-        {/* Right */}
+        {/* Right (same as before) */}
         <div className="flex items-center gap-4">
-
-          {/* Search */}
+          {/* Search Input */}
           <div className="relative">
             <form
               onSubmit={handleSearch}
               className="relative flex items-center rounded-lg overflow-hidden bg-white/10 backdrop-blur px-3"
             >
-              {/* Search icon inside input */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -109,7 +97,6 @@ const Navbar = () => {
                 />
               </svg>
 
-              {/* Input */}
               <input
                 type="text"
                 placeholder="Search..."
@@ -119,21 +106,19 @@ const Navbar = () => {
               />
             </form>
 
-            {/* Search results dropdown */}
             {search.length > 0 && (
               <div className="absolute top-full mt-2 w-80 bg-[#0a0f1c] rounded-xl shadow-xl p-2 z-50">
-                {/* This is just an example box — you will replace it with real search results */}
                 <div className="p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition">
                   <h3 className="font-semibold text-white">Search Result</h3>
                   <p className="text-sm text-white/60">
-                    This is an example. Plug in real results here.
+                    This is an example. Plug in real search logic.
                   </p>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 🎨 Accent Dropdown */}
+          {/* Accent Picker */}
           <div ref={pickerRef} className="relative">
             <button
               onClick={() => setOpenPicker((prev) => !prev)}
@@ -159,14 +144,8 @@ const Navbar = () => {
             {openPicker && (
               <div
                 className="
-                  absolute 
-                  right-0 
-                  mt-2 
-                  bg-gray-800 
-                  p-3 
-                  rounded-xl 
-                  shadow-xl 
-                  w-80 
+                  absolute right-0 mt-2 bg-gray-800 
+                  p-3 rounded-xl shadow-xl w-80 
                   border border-white/10
                 "
               >

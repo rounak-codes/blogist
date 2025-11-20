@@ -73,7 +73,7 @@ const Blogs = () => {
       <Navbar />
 
       {/* HERO SECTION TO MATCH HOME */}
-      <div className="relative w-full h-[380px] md:h-[360px] mt-16">
+      <div className="relative w-full h-[380px] md:h-[360px] mt-0">
         <img
           src="/images/bg.jpg"
           alt="Blogs Banner"
