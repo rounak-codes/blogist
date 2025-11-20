@@ -77,7 +77,7 @@ const Navbar = () => {
             <a href="/about">About</a>
           </li>
           <li>
-            <a href="/tierlist">Tier List</a>
+            <a href="/archive">Archive</a>
           </li>
           <li>
             <a href="/contact">Contact</a>
@@ -166,7 +166,7 @@ const Navbar = () => {
                   p-3 
                   rounded-xl 
                   shadow-xl 
-                  w-40 
+                  w-80 
                   border border-white/10
                 "
               >

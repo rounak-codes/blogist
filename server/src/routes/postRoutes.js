@@ -39,7 +39,7 @@ router.post(
 
       const uploaded = await uploadPromise();
 
-      res.json({ url: uploaded.secure_url });
+      res.json({ secure_url: uploaded.secure_url, public_id: uploaded.public_id });
     } catch (err) {
       console.error("Cloudinary upload error:", err);
       res.status(500).json({ message: "Upload failed" });
@@ -59,7 +59,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get one post
+// Get a single post
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -75,7 +75,7 @@ router.get("/:id", async (req, res) => {
 // Create post
 router.post("/", adminAuth, async (req, res) => {
   try {
-    const { title, content, categories, tags, coverImage } = req.body;
+    const { title, content, categories, tags, coverImage, gallery } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({
@@ -83,15 +83,21 @@ router.post("/", adminAuth, async (req, res) => {
       });
     }
 
-    // Create slug from title
+    // Create slug
     const slug = title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
-    // Excerpt (first 150 plain-text chars)
-    const text = content.replace(/<[^>]+>/g, "");
-    const excerpt = text.substring(0, 150) + "...";
+    // Plain text for excerpt & word count
+    const plain = content.replace(/<[^>]+>/g, " ");
+    const excerpt = plain.substring(0, 150) + "...";
+
+    // Word count
+    const words = plain.trim().split(/\s+/).length;
+
+    // Reading time (200 wpm)
+    const readingTime = Math.max(1, Math.ceil(words / 200));
 
     const newPost = new Post({
       title,
@@ -101,6 +107,9 @@ router.post("/", adminAuth, async (req, res) => {
       categories: categories || [],
       tags: tags || [],
       coverImage: coverImage || "",
+      gallery: gallery || [],
+      wordCount: words,
+      readingTime,
     });
 
     const saved = await newPost.save();
