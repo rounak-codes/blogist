@@ -42,11 +42,27 @@ const Archive = () => {
 
   if (!loaded) {
     return (
-      <div className="min-h-screen bg-[#0a0f1c] text-white p-10">
-        Loading archive…
+      <div className="min-h-screen bg-[#0a0f1c] text-white">
+        <Navbar />
+  
+        {/* HERO */}
+        <div className="relative w-full h-[360px] mt-0">
+          <img
+            src="/images/bg.jpg"
+            className="w-full h-full object-cover opacity-60 pointer-events-none select-none"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+  
+        {/* Loading State */}
+        <div className="max-w-7xl mx-auto px-4 -mt-24 pb-10 relative z-10">
+          <p className="text-white/60 text-xl mt-20 animate-pulse">
+            Loading archive…
+          </p>
+        </div>
       </div>
     );
-  }
+  }  
 
   return (
     <div className="min-h-screen bg-[#0a0f1c] text-white">
