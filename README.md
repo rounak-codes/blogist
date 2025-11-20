@@ -4,12 +4,30 @@
 
 ---
 # Screenshots
-<img width="1845" height="884" alt="image" src="https://github.com/user-attachments/assets/a7388beb-d3da-47a5-9afd-bfd082469673" />
-<img width="1839" height="885" alt="image" src="https://github.com/user-attachments/assets/05cd814e-da3b-4bd8-a5f4-0faf7f72ccd8" />
-<img width="1834" height="883" alt="image" src="https://github.com/user-attachments/assets/6115f2a6-4498-4315-b964-6452d4ab0057" />
-<img width="1835" height="886" alt="image" src="https://github.com/user-attachments/assets/55f98e51-95bb-4aaa-959d-a5df4bf64e52" />
-<img width="1829" height="880" alt="image" src="https://github.com/user-attachments/assets/2ab5346e-b8bd-4616-bc1a-a9fc1ce388e0" />
-<img width="1832" height="883" alt="image" src="https://github.com/user-attachments/assets/49b062aa-cf6a-4821-a541-e9746fa54553" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a7388beb-d3da-47a5-9afd-bfd082469673" width="48%" />
+  <img src="https://github.com/user-attachments/assets/05cd814e-da3b-4bd8-a5f4-0faf7f72ccd8" width="48%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6115f2a6-4498-4315-b964-6452d4ab0057" width="48%" />
+  <img src="https://github.com/user-attachments/assets/55f98e51-95bb-4aaa-959d-a5df4bf64e52" width="48%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2ab5346e-b8bd-4616-bc1a-a9fc1ce388e0" width="48%" />
+  <img src="https://github.com/user-attachments/assets/49b062aa-cf6a-4821-a541-e9746fa54553" width="48%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/630f7ed7-e955-43f9-b4f5-0295938e51d6" width="48%" />
+  <img src="https://github.com/user-attachments/assets/b481bbf4-e735-4f20-b673-4e31205b41ba" width="48%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1f0f5f6c-fb53-4d79-b6c9-32fbd724a6f4" width="48%" />
+  <img src="https://github.com/user-attachments/assets/a8630972-b7fa-4688-b8d4-435149e06049" width="48%" />
+</p>
 
 
 ## **Blogist — Full-Stack Blogging Platform (React + Node.js + MongoDB + Cloudinary)**
