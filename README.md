@@ -2,6 +2,16 @@
 - **Client Blog:** [https://blogist.vercel.app](https://blogist-two.vercel.app/)
 - **Admin Dashboard:** [https://blogist-admin.vercel.app](https://blogist-admin.vercel.app/)
 
+---
+# Screenshots
+<img width="1845" height="884" alt="image" src="https://github.com/user-attachments/assets/a7388beb-d3da-47a5-9afd-bfd082469673" />
+<img width="1839" height="885" alt="image" src="https://github.com/user-attachments/assets/05cd814e-da3b-4bd8-a5f4-0faf7f72ccd8" />
+<img width="1834" height="883" alt="image" src="https://github.com/user-attachments/assets/6115f2a6-4498-4315-b964-6452d4ab0057" />
+<img width="1835" height="886" alt="image" src="https://github.com/user-attachments/assets/55f98e51-95bb-4aaa-959d-a5df4bf64e52" />
+<img width="1829" height="880" alt="image" src="https://github.com/user-attachments/assets/2ab5346e-b8bd-4616-bc1a-a9fc1ce388e0" />
+<img width="1832" height="883" alt="image" src="https://github.com/user-attachments/assets/49b062aa-cf6a-4821-a541-e9746fa54553" />
+
+
 ## **Blogist — Full-Stack Blogging Platform (React + Node.js + MongoDB + Cloudinary)**
 
 A modern, fast, fully customizable blogging platform built with:
