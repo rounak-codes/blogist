@@ -32,7 +32,7 @@
 
 ## **Blogist — Full-Stack Blogging Platform (React + Node.js + MongoDB + Cloudinary)**
 
-A modern, fast, fully customizable blogging platform built with:
+A modern, fast, fully customizable blogging platform inspired by [Saicaca's Fuwari template](https://github.com/saicaca/fuwari) but not on Astro!, its built with:
 
 * **React (Vite) — Client**
 * **React (Vite) — Client Admin Dashboard**
