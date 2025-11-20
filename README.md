@@ -2,6 +2,7 @@
 - **Client Blog:** [https://blogist.vercel.app](https://blogist-two.vercel.app/)
 - **Admin Dashboard:** [https://blogist-admin.vercel.app](https://blogist-admin.vercel.app/)
 
+Request a PM/Inbox for the admin Secret Key!
 ---
 # Screenshots
 <p align="center">
