@@ -38,7 +38,8 @@ const Home = () => {
       </div>
 
       {/* CONTENT THAT OVERLAPS THE HERO BACKGROUND */}
-      <div className="w-full px-4 flex gap-6 max-w-7xl mx-auto -mt-16">
+      <div className="w-full px-4 flex gap-6 max-w-7xl mx-auto -mt-16
+      opacity-0 animate-[slideDownFade_0.6s_ease-out_forwards]">
         {/* Sidebar */}
         <Sidebar />
 

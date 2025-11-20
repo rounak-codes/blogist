@@ -49,12 +49,34 @@ router.post(
 
 /* ------------------ PUBLIC ROUTES ------------------ */
 
-// Get all posts
+// Get all posts (with optional filters)
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const { category, tag, search } = req.query;
+
+    const query = {};
+
+    // category/tag are expected to be values stored inside the arrays: post.categories, post.tags
+    if (category) {
+      // exact match inside array
+      query.categories = category;
+    }
+
+    if (tag) {
+      query.tags = tag;
+    }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const posts = await Post.find(query).sort({ createdAt: -1 });
     res.json(posts);
   } catch (error) {
+    console.error("Error fetching posts:", error);
     res.status(500).json({ message: "Error fetching posts" });
   }
 });
@@ -75,7 +97,7 @@ router.get("/:id", async (req, res) => {
 // Create post
 router.post("/", adminAuth, async (req, res) => {
   try {
-    const { title, content, categories, tags, coverImage, gallery } = req.body;
+    const { title, content, categories, tags, coverImage, gallery, status } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({
@@ -104,12 +126,13 @@ router.post("/", adminAuth, async (req, res) => {
       slug,
       content,
       excerpt,
-      categories: categories || [],
-      tags: tags || [],
+      categories: Array.isArray(categories) ? categories : (categories ? [categories] : []),
+      tags: Array.isArray(tags) ? tags : (tags ? [tags] : []),
       coverImage: coverImage || "",
       gallery: gallery || [],
       wordCount: words,
       readingTime,
+      status: status || "published",
     });
 
     const saved = await newPost.save();

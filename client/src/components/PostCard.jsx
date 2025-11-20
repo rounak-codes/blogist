@@ -1,3 +1,4 @@
+// client/src/components/PostCard.jsx
 import { Link } from "react-router-dom";
 import {
   CalendarDays,
@@ -16,45 +17,46 @@ const PostCard = ({ post }) => {
   const minutes = Math.max(1, Math.ceil(wordCount / 180));
 
   return (
-    <Link
-      to={`/post/${post._id}`}
+    <div
       className="
         group block bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
         shadow hover:shadow-lg transition-all border border-white/10 
         hover:scale-[1.01] relative
       "
     >
-      {/* Cover Image */}
+      {/* Cover Image (make image clickable) */}
       {post.coverImage && (
         <div className="relative">
-          <img
-            src={post.coverImage}
-            alt={post.title}
-            className="w-full h-56 object-cover"
-          />
+          <Link to={`/post/${post._id}`}>
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="w-full h-56 object-cover"
+            />
+          </Link>
         </div>
       )}
 
       <div className="p-5 pr-20 space-y-4">
-
         {/* Title + Left Accent Bar */}
         <div className="flex items-center gap-3">
           <div className="w-1 h-7 bg-[var(--accent)] mt-2 rounded-full"></div>
 
-          <h2
-            className="
-              text-4.5xl font-semibold 
-              transition
-              group-hover:text-[var(--accent)]
-            "
-          >
-            {post.title}
-          </h2>
+          <Link to={`/post/${post._id}`}>
+            <h2
+              className="
+                text-4.5xl font-semibold 
+                transition
+                group-hover:text-[var(--accent)]
+              "
+            >
+              {post.title}
+            </h2>
+          </Link>
         </div>
 
         {/* Meta Row */}
         <div className="flex flex-wrap items-center gap-4 text-base text-gray-400">
-
           {/* Date */}
           <div className="flex items-center gap-1">
             <CalendarDays size={16} className="text-[var(--accent)]" />
@@ -68,8 +70,16 @@ const PostCard = ({ post }) => {
               {post.categories.map((cat) => (
                 <Link
                   key={cat}
-                  to={`/category/${cat}`}
-                  className="text-[var(--accent)] hover:underline"
+                  to={`/blogs?category=${encodeURIComponent(cat)}`}
+                  className="
+                    px-2 py-[1px] rounded-full text-xs 
+                    border 
+                    bg-[var(--accent)]/10
+                    text-[var(--accent)]
+                    border-[var(--accent)]/40
+                    hover:bg-[var(--accent)] hover:text-black 
+                    transition
+                  "
                 >
                   {cat}
                 </Link>
@@ -86,7 +96,7 @@ const PostCard = ({ post }) => {
                 {post.tags.map((tag) => (
                   <Link
                     key={tag}
-                    to={`/tag/${tag}`}
+                    to={`/blogs?tag=${encodeURIComponent(tag)}`}
                     className="
                       px-2 py-[1px] rounded-full text-xs 
                       border 
@@ -112,7 +122,6 @@ const PostCard = ({ post }) => {
 
         {/* Footer Row */}
         <div className="flex items-center gap-4 text-gray-400 text-base pt-2">
-
           <div className="flex items-center gap-1">
             <BookOpen size={15} className="text-[var(--accent)]" />
             <span>{wordCount} words</span>
@@ -140,7 +149,7 @@ const PostCard = ({ post }) => {
       >
         <ArrowRight className="text-[var(--accent)] group-hover:text-black" size={20} />
       </div>
-    </Link>
+    </div>
   );
 };
 

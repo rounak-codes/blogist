@@ -22,7 +22,7 @@ const Archive = () => {
           grouped[year].push(post);
         });
 
-        // Sort years descending
+        // Sort years (desc)
         const sorted = Object.keys(grouped)
           .sort((a, b) => b - a)
           .reduce((acc, key) => {
@@ -36,6 +36,7 @@ const Archive = () => {
         console.error("Archive load error:", err);
       }
     };
+
     load();
   }, []);
 
@@ -51,39 +52,48 @@ const Archive = () => {
     <div className="min-h-screen bg-[#0a0f1c] text-white">
       <Navbar />
 
-      {/* HERO BACKGROUND - same as Home */}
-      <div className="w-full h-[380px]">
+      {/* HERO --- similar to Blogs */}
+      <div className="relative w-full h-[360px] mt-16">
         <img
           src="/images/bg.jpg"
-          className="w-full h-full object-contain pointer-events-none select-none"
+          className="w-full h-full object-cover opacity-60 pointer-events-none select-none"
         />
+        <div className="absolute inset-0 bg-black/50" />
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+          <h1
+            className="text-5xl md:text-6xl font-bold drop-shadow-lg"
+            style={{ color: "var(--accent)" }}
+          >
+            Archive
+          </h1>
+          <p className="text-white/80 mt-3 text-lg max-w-2xl">
+            Browse posts organized by year and timeline.
+          </p>
+        </div>
       </div>
 
-      {/* CONTENT */}
+      {/* CONTENT (flexible height — no fixed values) */}
       <div
         className="
           w-full px-4 flex gap-10 max-w-7xl mx-auto
-          -mt-11 relative z-10
+          -mt-24 relative z-10
+          opacity-0 animate-[slideDownFade_0.6s_ease-out_forwards]
         "
       >
         {/* Sidebar */}
         <Sidebar />
 
-        {/* ARCHIVE CARD */}
+        {/* ARCHIVE TIMELINE CARD */}
         <div
           className="
             flex-1 bg-[#0d1525] p-8 rounded-xl shadow
             border border-white/5
           "
         >
-          <h1 className="text-4xl font-bold mb-6 text-[var(--accent)]">
-            Archive
-          </h1>
-
-          {/* All years */}
+          {/* YEARS */}
           {Object.keys(posts).map((year) => (
             <div key={year} className="mb-16">
-
               {/* YEAR HEADER */}
               <div className="flex items-baseline gap-4 mb-6">
                 <h2 className="text-4xl font-bold tracking-tight">{year}</h2>
@@ -92,10 +102,9 @@ const Archive = () => {
                 </span>
               </div>
 
-              {/* TIMELINE SECTION */}
+              {/* TIMELINE */}
               <div className="relative pl-14">
-
-                {/* VERTICAL LINE */}
+                {/* Vertical Line */}
                 <div
                   className="
                     absolute top-0 bottom-0
@@ -111,8 +120,7 @@ const Archive = () => {
 
                   return (
                     <div key={post._id} className="relative pb-10">
-
-                      {/* TIMELINE DOT */}
+                      {/* DOT */}
                       <div
                         className="
                           w-4 h-4 rounded-full
@@ -122,8 +130,8 @@ const Archive = () => {
                         "
                       />
 
+                      {/* CONTENT */}
                       <div className="flex flex-col md:flex-row md:items-center gap-6">
-
                         {/* DATE */}
                         <div className="w-20 text-white/50 text-lg font-medium">
                           {mm}-{dd}
@@ -158,7 +166,6 @@ const Archive = () => {
                             </span>
                           ))}
                         </div>
-
                       </div>
                     </div>
                   );
@@ -166,6 +173,9 @@ const Archive = () => {
               </div>
             </div>
           ))}
+
+          {/* END DIVIDER (visible) */}
+          <div className="w-full h-[1px] bg-white/20 mt-8 mb-2 rounded-full opacity-70"></div>
         </div>
       </div>
     </div>

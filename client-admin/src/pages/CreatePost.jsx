@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TipTapEditor from "../components/TipTapEditor";
 import GalleryManager from "../components/GalleryManager";
+import TagInput from "../components/TagInput";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [coverImage, setCoverImage] = useState("");
+  const [gallery, setGallery] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
   const [status, setStatus] = useState("published");
   const [saving, setSaving] = useState(false);
 
@@ -45,7 +49,15 @@ const CreatePost = () => {
           "Content-Type": "application/json",
           "x-admin-secret": localStorage.getItem("admin_secret") || "",
         },
-        body: JSON.stringify({ title, content: html, coverImage, status }),
+        body: JSON.stringify({
+          title,
+          content: html,
+          coverImage,
+          gallery,
+          categories,
+          tags,
+          status,
+        }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || "Create failed");
@@ -86,6 +98,12 @@ const CreatePost = () => {
           )}
         </div>
 
+        {/* CATEGORIES */}
+        <TagInput label="Categories" items={categories} setItems={setCategories} />
+
+        {/* TAGS */}
+        <TagInput label="Tags" items={tags} setItems={setTags} />
+
         <div>
           <label className="text-sm text-white/60 mb-2 block">Content</label>
           <TipTapEditor ref={editorRef} value={content} onChange={(html) => setContent(html)} apiBase={apiBase} />
@@ -93,7 +111,13 @@ const CreatePost = () => {
 
         <div>
           <label className="text-sm text-white/60 mb-2 block">Gallery</label>
-          <GalleryManager apiBase={apiBase} onSelect={(img) => setCoverImage(img.secure_url || img.url)} />
+          <GalleryManager
+            apiBase={apiBase}
+            onSelect={(img) => {
+              setCoverImage(img.secure_url || img.url);
+              setGallery((prev) => [...prev, img.secure_url || img.url]);
+            }}
+          />
         </div>
 
         <div className="flex items-center gap-3">
