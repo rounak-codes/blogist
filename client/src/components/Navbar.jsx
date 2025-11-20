@@ -1,12 +1,21 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";   // ADD THIS
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+
   const [accent, setAccent] = useState(265);
   const [openPicker, setOpenPicker] = useState(false);
-  const pickerRef = useRef(null);
 
+  const pickerRef = useRef(null);
+  const searchRef = useRef(null);
+  const navigate = useNavigate();
+
+  // -----------------------------------
+  // Load accent & detect clicks outside
+  // -----------------------------------
   useEffect(() => {
     const storedHue = localStorage.getItem("accent-hue");
     if (storedHue) {
@@ -17,14 +26,24 @@ const Navbar = () => {
     }
 
     const handleClickOutside = (e) => {
-      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+      if (
+        pickerRef.current &&
+        !pickerRef.current.contains(e.target) &&
+        searchRef.current &&
+        !searchRef.current.contains(e.target)
+      ) {
         setOpenPicker(false);
+        setShowResults(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // -----------------------------------
+  // Apply accent color
+  // -----------------------------------
   const applyAccent = (hue) => {
     document.documentElement.style.setProperty("--accent-h", hue);
     document.documentElement.style.setProperty(
@@ -44,6 +63,31 @@ const Navbar = () => {
     localStorage.setItem("accent-hue", hue);
   };
 
+  // -----------------------------------
+  // 🔍 LIVE SEARCH (debounced)
+  // -----------------------------------
+  useEffect(() => {
+    if (!search.trim()) {
+      setResults([]);
+      return;
+    }
+
+    const timeout = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE}/posts?search=${search}`
+        );
+        const data = await res.json();
+        setResults(data.slice(0, 5)); // Top 5
+        setShowResults(true);
+      } catch (err) {
+        console.error("Search error:", err);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [search]);
+
   const handleSearch = (e) => e.preventDefault();
 
   return (
@@ -57,7 +101,7 @@ const Navbar = () => {
         "
         style={{ backgroundColor: "var(--bg-accent)" }}
       >
-        {/* Left */}
+        {/* LEFT */}
         <Link
           to="/"
           className="font-bold text-lg ml-6"
@@ -66,24 +110,28 @@ const Navbar = () => {
           Home
         </Link>
 
-        {/* Center */}
+        {/* CENTER LINKS */}
         <ul className="flex space-x-6 ml-40 text-white">
           <li><Link to="/blogs">Blogs</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/archive">Archive</Link></li>
           <li>
-          <a href="https://github.com/rounak-codes" target="_blank" rel="noopener noreferrer"
-            className="hover:text-[var(--accent)] transition"
-          >
-            Github
-          </a>
-        </li>
+            <a
+              href="https://github.com/rounak-codes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--accent)] transition"
+            >
+              Github
+            </a>
+          </li>
         </ul>
 
-        {/* Right (same as before) */}
+        {/* RIGHT SIDE */}
         <div className="flex items-center gap-4">
-          {/* Search Input */}
-          <div className="relative">
+
+          {/* SEARCH BOX */}
+          <div className="relative" ref={searchRef}>
             <form
               onSubmit={handleSearch}
               className="relative flex items-center rounded-lg overflow-hidden bg-white/10 backdrop-blur px-3"
@@ -112,19 +160,57 @@ const Navbar = () => {
               />
             </form>
 
-            {search.length > 0 && (
-              <div className="absolute top-full mt-2 w-80 bg-[#0a0f1c] rounded-xl shadow-xl p-2 z-50">
-                <div className="p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition">
-                  <h3 className="font-semibold text-white">Search Result</h3>
-                  <p className="text-sm text-white/60">
-                    This is an example. Plug in real search logic.
-                  </p>
-                </div>
+            {/* 🔽 SEARCH DROPDOWN */}
+            {search.length > 0 && showResults && (
+              <div className="absolute top-full mt-2 w-80 bg-[#0a0f1c] 
+                              rounded-xl shadow-xl p-2 z-50 border border-white/10">
+
+                {/* Nothing found */}
+                {results.length === 0 && (
+                  <div className="p-3 text-white/60 text-sm">
+                    No posts found.
+                  </div>
+                )}
+
+                {/* Results */}
+                {results.map((post) => (
+                  <Link
+                    key={post._id}
+                    to={`/post/${post._id}`}
+                    onClick={() => {
+                      setShowResults(false);
+                      setSearch("");
+                    }}
+                    className="block p-3 rounded-lg bg-white/5 
+                               hover:bg-white/10 transition cursor-pointer"
+                  >
+                    <h3 className="font-semibold text-white text-sm">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs text-white/40">
+                      {post.excerpt || "Article"}
+                    </p>
+                  </Link>
+                ))}
+
+                {/* SEE ALL RESULTS */}
+                {results.length > 0 && (
+                  <button
+                    onClick={() => {
+                      navigate(`/blogs?search=${search}`);
+                      setShowResults(false);
+                    }}
+                    className="w-full text-left mt-2 text-[var(--accent)] 
+                               hover:text-white transition text-sm px-3 py-2"
+                  >
+                    See all results →
+                  </button>
+                )}
               </div>
             )}
           </div>
 
-          {/* Accent Picker */}
+          {/* ACCENT PICKER */}
           <div ref={pickerRef} className="relative">
             <button
               onClick={() => setOpenPicker((prev) => !prev)}
