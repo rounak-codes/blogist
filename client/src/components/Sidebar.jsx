@@ -4,8 +4,8 @@ import CategoriesCard from "./CategoriesCard";
 import TagsCard from "./TagsCard";
 
 const Sidebar = ({ onCategorySelect, onTagSelect }) => {
-  const categories = ["Patch Notes", "Story Thoughts", "Meta Talk"];
-  const tags = ["furina", "neuvillette", "archon", "abyss", "guide", "build"];
+  const categories = ["Coding", "Tech", "Gaming" , "Test"];
+  const tags = ["Python", "AI", "Javascript", "Guides", "Test" , "Photo"];
 
   return (
     <div className="w-80 flex flex-col gap-4 mb-4">

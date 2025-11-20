@@ -32,6 +32,14 @@ const Blogs = () => {
     });
   }, [location.search]);
 
+  // Scroll to top on filter change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, [filters]);
+
   // ---------------------------
   // Fetch posts based on filters
   // ---------------------------

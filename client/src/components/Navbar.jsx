@@ -71,7 +71,13 @@ const Navbar = () => {
           <li><Link to="/blogs">Blogs</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/archive">Archive</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+          <li>
+          <a href="https://github.com/rounak-codes" target="_blank" rel="noopener noreferrer"
+            className="hover:text-[var(--accent)] transition"
+          >
+            Github
+          </a>
+        </li>
         </ul>
 
         {/* Right (same as before) */}

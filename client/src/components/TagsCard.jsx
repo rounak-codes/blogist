@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const TagsCard = ({ tags, onTagSelect }) => {
   const safeTags = Array.isArray(tags) ? tags : [];
 
@@ -13,20 +15,27 @@ const TagsCard = ({ tags, onTagSelect }) => {
           <span className="text-sm text-gray-500">No tags found</span>
         )}
 
-        {safeTags.map((tag, idx) => (
-          <button
-            key={idx}
-            onClick={() => onTagSelect(tag)}
-            className="
-              px-3 py-1 text-sm rounded-full 
-              bg-transparent text-white
-              transition-colors duration-200
-              hover:bg-[var(--hover-accent)]
-            "
-          >
-            #{tag}
-          </button>
-        ))}
+        {safeTags.map((tag, idx) => {
+          const safe = tag.toLowerCase();  // <-- CASE INSENSITIVE
+
+          return (
+            <Link
+              key={idx}
+              to={`/blogs?tag=${encodeURIComponent(safe)}`}
+              onClick={() => onTagSelect(safe)}
+              className="
+                px-3 py-1 text-sm rounded-full 
+                bg-[var(--accent)]/10
+                text-[var(--accent)]
+                border border-[var(--accent)]/40
+                hover:bg-[var(--accent)] hover:text-black
+                transition
+              "
+            >
+              #{tag}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
