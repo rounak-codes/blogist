@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 
 const PostCard = ({ post }) => {
-  // word count
   const wordCount = post.content
     ? post.content.replace(/<[^>]+>/g, "").trim().split(/\s+/).length
     : 0;
@@ -17,46 +16,43 @@ const PostCard = ({ post }) => {
   const minutes = Math.max(1, Math.ceil(wordCount / 180));
 
   return (
-    <div
+    <Link
+      to={`/post/${post._id}`}
       className="
         group block bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
         shadow hover:shadow-lg transition-all border border-white/10 
         hover:scale-[1.01] relative
       "
     >
-      {/* Cover Image (make image clickable) */}
+      {/* Cover */}
       {post.coverImage && (
-        <div className="relative">
-          <Link to={`/post/${post._id}`}>
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="w-full h-56 object-cover"
-            />
-          </Link>
-        </div>
+        <img
+          src={post.coverImage}
+          alt={post.title}
+          className="w-full h-56 object-cover"
+        />
       )}
 
       <div className="p-5 pr-20 space-y-4">
-        {/* Title + Left Accent Bar */}
+
+        {/* Title */}
         <div className="flex items-center gap-3">
           <div className="w-1 h-7 bg-[var(--accent)] mt-2 rounded-full"></div>
 
-          <Link to={`/post/${post._id}`}>
-            <h2
-              className="
-                text-4.5xl font-semibold 
-                transition
-                group-hover:text-[var(--accent)]
-              "
-            >
-              {post.title}
-            </h2>
-          </Link>
+          <h2
+            className="
+              text-4.5xl font-semibold 
+              transition
+              group-hover:text-[var(--accent)]
+            "
+          >
+            {post.title}
+          </h2>
         </div>
 
         {/* Meta Row */}
         <div className="flex flex-wrap items-center gap-4 text-base text-gray-400">
+
           {/* Date */}
           <div className="flex items-center gap-1">
             <CalendarDays size={16} className="text-[var(--accent)]" />
@@ -71,6 +67,7 @@ const PostCard = ({ post }) => {
                 <Link
                   key={cat}
                   to={`/blogs?category=${encodeURIComponent(cat)}`}
+                  onClick={(e) => e.stopPropagation()}
                   className="
                     px-2 py-[1px] rounded-full text-xs 
                     border 
@@ -97,6 +94,7 @@ const PostCard = ({ post }) => {
                   <Link
                     key={tag}
                     to={`/blogs?tag=${encodeURIComponent(tag)}`}
+                    onClick={(e) => e.stopPropagation()}
                     className="
                       px-2 py-[1px] rounded-full text-xs 
                       border 
@@ -113,6 +111,7 @@ const PostCard = ({ post }) => {
               </div>
             </div>
           )}
+
         </div>
 
         {/* Excerpt */}
@@ -127,14 +126,16 @@ const PostCard = ({ post }) => {
             <span>{wordCount} words</span>
           </div>
 
-          <div className="text-[var(--accent)] font-medium">{minutes} min read</div>
+          <div className="text-[var(--accent)] font-medium">
+            {minutes} min read
+          </div>
         </div>
       </div>
 
       {/* Bottom hover highlight */}
       <div className="h-[3px] bg-[var(--accent)] w-0 group-hover:w-full transition-all"></div>
 
-      {/* Right-side accent bar */}
+      {/* Right Accent Bar */}
       <div
         className="
           absolute top-5 bottom-2 right-4 h-[80%] w-14
@@ -149,7 +150,7 @@ const PostCard = ({ post }) => {
       >
         <ArrowRight className="text-[var(--accent)] group-hover:text-black" size={20} />
       </div>
-    </div>
+    </Link>
   );
 };
 

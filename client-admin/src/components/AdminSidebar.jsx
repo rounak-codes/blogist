@@ -23,7 +23,7 @@ const AdminSidebar = () => {
     <aside className="w-72 bg-[#041125] border-r border-white/6 px-4 py-6 flex flex-col gap-6">
       <div className="px-2">
         <Link to="/dashboard" className="text-2xl font-bold text-white" style={{ color: "var(--accent)" }}>
-          Fuwari Admin
+          Admin Home
         </Link>
         <p className="text-xs text-white/50 mt-1">Manage posts & content</p>
       </div>
