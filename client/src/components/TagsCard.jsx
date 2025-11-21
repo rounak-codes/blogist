@@ -1,41 +1,32 @@
-import { Link } from "react-router-dom";
+// client/src/components/TagsCard.jsx
 
-const TagsCard = ({ tags, onTagSelect }) => {
-  const safeTags = Array.isArray(tags) ? tags : [];
+const TagsCard = ({ onTagSelect }) => {
+  const tags = ["Python", "AI", "Javascript", "Guides", "Test", "Photo"];
 
   return (
     <div
-      className="shadow rounded-xl p-4"
-      style={{ backgroundColor: "var(--bg-accent)" }}
+      className="
+        bg-[#0d1525]/70 p-5 rounded-xl shadow 
+        border border-white/10 backdrop-blur
+      "
     >
-      <h2 className="text-lg font-semibold mb-3 text-white">Tags</h2>
+      <h3 className="text-xl font-semibold mb-3 text-white">Tags</h3>
 
       <div className="flex flex-wrap gap-2">
-        {safeTags.length === 0 && (
-          <span className="text-sm text-gray-500">No tags found</span>
-        )}
-
-        {safeTags.map((tag, idx) => {
-          const safe = tag.toLowerCase();  // <-- CASE INSENSITIVE
-
-          return (
-            <Link
-              key={idx}
-              to={`/blogs?tag=${encodeURIComponent(safe)}`}
-              onClick={() => onTagSelect(safe)}
-              className="
-                px-3 py-1 text-sm rounded-full 
-                bg-[var(--accent)]/10
-                text-[var(--accent)]
-                border border-[var(--accent)]/40
-                hover:bg-[var(--accent)] hover:text-black
-                transition
-              "
-            >
-              #{tag}
-            </Link>
-          );
-        })}
+        {tags.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => onTagSelect(tag.toLowerCase())}
+            className="
+              px-3 py-[6px] rounded-full
+              bg-white/5 text-white/80 border border-white/10
+              hover:bg-[var(--accent)] hover:text-black hover:border-[var(--accent)]
+              transition text-sm
+            "
+          >
+            #{tag}
+          </button>
+        ))}
       </div>
     </div>
   );

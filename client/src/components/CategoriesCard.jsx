@@ -1,39 +1,32 @@
-import { Link } from "react-router-dom";
+// client/src/components/CategoriesCard.jsx
 
-const CategoriesCard = ({ categories, onCategorySelect }) => {
-  const safeCategories = Array.isArray(categories) ? categories : [];
+const CategoriesCard = ({ onCategorySelect }) => {
+  const categories = ["Coding", "Tech", "Gaming", "Test"];
 
   return (
     <div
-      className="shadow rounded-xl p-4"
-      style={{ backgroundColor: "var(--bg-accent)" }}
+      className="
+        bg-[#0d1525]/70 p-5 rounded-xl shadow 
+        border border-white/10 backdrop-blur
+      "
     >
-      <h2 className="text-lg font-semibold mb-3 text-white">Categories</h2>
+      <h3 className="text-xl font-semibold mb-3 text-white">Categories</h3>
 
       <div className="flex flex-col gap-2">
-        {safeCategories.length === 0 && (
-          <span className="text-sm text-gray-500">No categories found</span>
-        )}
-
-        {safeCategories.map((cat, idx) => {
-          const safe = cat.toLowerCase();   // <-- CASE INSENSITIVE VALUE
-
-          return (
-            <Link
-              key={idx}
-              to={`/blogs?category=${encodeURIComponent(safe)}`}
-              onClick={() => onCategorySelect(safe)}
-              className="
-                text-left px-3 py-2 rounded-lg 
-                bg-transparent text-white w-full
-                transition-colors duration-200
-                hover:bg-[var(--hover-accent)]
-              "
-            >
-              {cat}
-            </Link>
-          );
-        })}
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => onCategorySelect(cat)}
+            className="
+              text-left px-3 py-2 rounded-lg
+              bg-white/5 hover:bg-[var(--accent)] hover:text-black
+              border border-white/10 hover:border-[var(--accent)]
+              transition text-white/80
+            "
+          >
+            {cat}
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -12,19 +12,14 @@ const Blogs = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // ---------------------------
-  // Sync URL → filter state
-  // ---------------------------
   const [filters, setFilters] = useState({
     search: "",
     category: "",
     tag: "",
   });
 
-  // When URL changes, update filter values
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-
     setFilters({
       search: params.get("search") || "",
       category: params.get("category") || "",
@@ -32,17 +27,10 @@ const Blogs = () => {
     });
   }, [location.search]);
 
-  // Scroll to top on filter change
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [filters]);
 
-  // ---------------------------
-  // Fetch posts based on filters
-  // ---------------------------
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
@@ -60,63 +48,57 @@ const Blogs = () => {
     fetchPosts();
   }, [filters]);
 
-  // ---------------------------
-  // Click handler → updates URL directly
-  // ---------------------------
   const updateFilter = (key, value) => {
     const params = new URLSearchParams(location.search);
     if (value) params.set(key, value);
     else params.delete(key);
-
     navigate(`/blogs?${params.toString()}`);
   };
 
-  // ---------------------------
-  // Clear filters
-  // ---------------------------
   const clearFilters = () => navigate("/blogs");
 
   return (
-    <div className="min-h-screen bg-[#0a0f1c]">
+    <div className="min-h-screen bg-[#0a0f1c] overflow-x-hidden">
       <Navbar />
 
-      {/* HERO SECTION TO MATCH HOME */}
-      <div className="relative w-full h-[380px] md:h-[360px] mt-0">
+      {/* HERO */}
+      <div className="relative w-full h-[300px] sm:h-[360px] md:h-[380px] mt-0">
         <img
           src="/images/bg.jpg"
           alt="Blogs Banner"
           className="w-full h-full object-cover opacity-60"
         />
-
         <div className="absolute inset-0 bg-black/50" />
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <h1
-            className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg"
             style={{ color: "var(--accent)" }}
           >
             Blog Posts
           </h1>
-          <p className="text-white/80 mt-3 text-lg max-w-2xl">
-            Explore articles, guides, and updates filtered by categories & tags.
+          <p className="text-white/80 mt-3 text-base sm:text-lg max-w-2xl">
+            Explore articles filtered by category & tags.
           </p>
         </div>
       </div>
 
-      {/* PAGE CONTENT (same layout as home) */}
-      <div className="max-w-7xl mx-auto px-4 -mt-24 pb-10 flex gap-6 relative z-10
-      opacity-0 animate-[slideDownFade_0.6s_ease-out_forwards]
-      ">
-        {/* Sidebar */}
+      {/* PAGE CONTENT */}
+      <div
+        className="
+          max-w-7xl mx-auto px-3 sm:px-4 -mt-20 md:-mt-24 
+          pb-10 flex flex-col md:flex-row gap-6 
+          relative z-10
+          opacity-0 animate-[slideDownFade_0.6s_ease-out_forwards]
+        "
+      >
         <Sidebar
           onCategorySelect={(cat) => updateFilter("category", cat)}
           onTagSelect={(tag) => updateFilter("tag", tag)}
         />
 
-        {/* Main Content */}
         <div className="flex-1 text-white">
-          {/* Active Filters */}
-          {(filters.search || filters.category || filters.tag) && (
+          {filters.search || filters.category || filters.tag ? (
             <div className="mt-4 px-4 py-2 bg-white/5 rounded-lg text-sm flex gap-3 items-center">
               <span className="text-white/70">Filters:</span>
 
@@ -145,14 +127,13 @@ const Blogs = () => {
                 Reset
               </button>
             </div>
-          )}
+          ) : null}
 
-          {/* Posts */}
           {loading ? (
             <p className="mt-10 text-white/50 animate-pulse">Loading posts...</p>
           ) : posts.length === 0 ? (
             <div className="mt-12 text-center text-white/40 text-lg">
-              No posts match your selected filters.
+              No posts match your filters.
             </div>
           ) : (
             <div className="mt-8 opacity-0 animate-[slideDownFade_0.7s_ease-out_forwards]">

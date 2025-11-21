@@ -22,6 +22,7 @@ const PostCard = ({ post }) => {
         group block bg-white dark:bg-gray-900 rounded-xl overflow-hidden 
         shadow hover:shadow-lg transition-all border border-white/10 
         hover:scale-[1.01] relative
+        w-full
       "
     >
       {/* Cover */}
@@ -29,21 +30,28 @@ const PostCard = ({ post }) => {
         <img
           src={post.coverImage}
           alt={post.title}
-          className="w-full h-56 object-cover"
+          className="
+            w-full 
+            h-48 object-cover 
+            sm:h-56 
+            md:h-60 
+            lg:h-56
+          "
         />
       )}
 
-      <div className="p-5 pr-20 space-y-4">
+      <div className="p-4 sm:p-5 pr-16 sm:pr-20 space-y-3 sm:space-y-4">
 
         {/* Title */}
         <div className="flex items-center gap-3">
-          <div className="w-1 h-7 bg-[var(--accent)] mt-2 rounded-full"></div>
+          <div className="w-1 h-7 bg-[var(--accent)] mt-1.5 sm:mt-2 rounded-full"></div>
 
           <h2
             className="
-              text-4.5xl font-semibold 
+              text-2xl sm:text-4.5xl font-semibold 
               transition
               group-hover:text-[var(--accent)]
+              leading-snug
             "
           >
             {post.title}
@@ -51,23 +59,29 @@ const PostCard = ({ post }) => {
         </div>
 
         {/* Meta Row */}
-        <div className="flex flex-wrap items-center gap-4 text-base text-gray-400">
-
+        <div
+          className="
+            flex flex-wrap items-center gap-3 sm:gap-4 
+            text-sm sm:text-base text-gray-400
+          "
+        >
           {/* Date */}
           <div className="flex items-center gap-1">
-            <CalendarDays size={16} className="text-[var(--accent)]" />
+            <CalendarDays size={15} className="text-[var(--accent)]" />
             <span>{new Date(post.createdAt).toLocaleDateString()}</span>
           </div>
 
           {/* Categories */}
           {post.categories?.length > 0 && (
             <div className="flex items-center gap-1">
-              <Folder size={16} className="text-[var(--accent)]" />
+              <Folder size={15} className="text-[var(--accent)]" />
               {post.categories.map((cat) => (
-                <Link
+                <button
                   key={cat}
-                  to={`/blogs?category=${encodeURIComponent(cat)}`}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = `/blogs?category=${encodeURIComponent(cat)}`;
+                  }}
                   className="
                     px-2 py-[1px] rounded-full text-xs 
                     border 
@@ -79,7 +93,7 @@ const PostCard = ({ post }) => {
                   "
                 >
                   {cat}
-                </Link>
+                </button>
               ))}
             </div>
           )}
@@ -87,14 +101,16 @@ const PostCard = ({ post }) => {
           {/* Tags */}
           {post.tags?.length > 0 && (
             <div className="flex items-center gap-1">
-              <Tag size={16} className="text-[var(--accent)]" />
+              <Tag size={15} className="text-[var(--accent)]" />
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {post.tags.map((tag) => (
-                  <Link
+                  <button
                     key={tag}
-                    to={`/blogs?tag=${encodeURIComponent(tag)}`}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.location.href = `/blogs?tag=${encodeURIComponent(tag)}`;
+                    }}
                     className="
                       px-2 py-[1px] rounded-full text-xs 
                       border 
@@ -106,29 +122,39 @@ const PostCard = ({ post }) => {
                     "
                   >
                     #{tag}
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>
           )}
-
         </div>
 
         {/* Excerpt */}
-        <p className="text-lg text-gray-700 dark:text-gray-300 line-clamp-3">
+        <p
+          className="
+            text-base sm:text-lg 
+            text-gray-700 dark:text-gray-300 
+            line-clamp-3
+          "
+        >
           {post.excerpt}
         </p>
 
         {/* Footer Row */}
-        <div className="flex items-center gap-4 text-gray-400 text-base pt-2">
+        <div
+          className="
+            flex items-center gap-3 sm:gap-4 
+            text-gray-400 
+            text-sm sm:text-base
+            pt-2
+          "
+        >
           <div className="flex items-center gap-1">
-            <BookOpen size={15} className="text-[var(--accent)]" />
+            <BookOpen size={14} className="text-[var(--accent)]" />
             <span>{wordCount} words</span>
           </div>
 
-          <div className="text-[var(--accent)] font-medium">
-            {minutes} min read
-          </div>
+          <div className="text-[var(--accent)] font-medium">{minutes} min read</div>
         </div>
       </div>
 
@@ -138,7 +164,9 @@ const PostCard = ({ post }) => {
       {/* Right Accent Bar */}
       <div
         className="
-          absolute top-5 bottom-2 right-4 h-[80%] w-14
+          absolute top-5 bottom-2 right-3 sm:right-4 
+          h-[65%] sm:h-[80%] 
+          w-10 sm:w-14
           bg-[var(--accent)]/20 
           flex items-center justify-center
           rounded-xl
@@ -148,7 +176,7 @@ const PostCard = ({ post }) => {
           transition-all
         "
       >
-        <ArrowRight className="text-[var(--accent)] group-hover:text-black" size={20} />
+        <ArrowRight size={18} className="text-[var(--accent)] group-hover:text-black" />
       </div>
     </Link>
   );
